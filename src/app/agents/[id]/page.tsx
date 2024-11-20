@@ -5,7 +5,7 @@ import Retell from "retell-sdk";
 import { EnglishBots, SpanishBots, FrenchBots } from "../../../constants/data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-type Props = {};
+// type Props = {};
 
 type ResponseEngine = {
   llm_id?: string | undefined;
@@ -26,10 +26,9 @@ type AgentListProps = {
   voicemail_detection_timeout_ms?: number | undefined;
 };
 
-const page = (props: Props) => {
+const Page = () => {
   const params = useParams();
   const agentId = params.id;
-  //   console.log("agentId", agentId);
 
   const [agent, setAgent] = useState<AgentListProps>();
 
@@ -38,10 +37,7 @@ const page = (props: Props) => {
   });
 
   async function main() {
-    const agentResponse = await client.agent.retrieve(
-      //   "16b980523634a6dc504898cda492e939"
-      `${agentId}`
-    );
+    const agentResponse = await client.agent.retrieve(`${agentId}`);
     console.log(agentResponse);
     setAgent(agentResponse);
   }
@@ -251,4 +247,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

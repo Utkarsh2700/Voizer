@@ -21,8 +21,9 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
-type Props = {};
+// type Props = {};
 
 type ResponseEngine = {
   llm_id?: string | undefined;
@@ -47,19 +48,23 @@ const client = new Retell({
   apiKey: `${process.env.NEXT_PUBLIC_API_KEY}`,
 });
 
-const page = (props: Props) => {
+const Page = () => {
   let agentResponses;
   const [agents, setAgents] = useState<AgentListProps[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const agentsPerPage = 10;
   const router = useRouter();
   async function main() {
     try {
+      setLoading(true);
       agentResponses = await client.agent.list();
       //   console.log(agentResponses);
       setAgents(agentResponses);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -85,6 +90,13 @@ const page = (props: Props) => {
     // console.log("currentPage", currentPage);
     // }
   };
+  if (loading) {
+    return (
+      <div className="mt-16 flex items-center justify-center">
+        <Loader2 className="animate-spin h-16 w-16 text-green-600" />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -151,7 +163,7 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;
 
 //   const [users, setUsers] = useState([]);
 

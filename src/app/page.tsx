@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -10,8 +10,7 @@ export default function Home() {
           This is the homepage
         </p>
       </div>
-      {/* <ListPage /> */}
-      <Link className="text-blue-500" href={"/agents"}>
+      <Link className="text-blue-500 text-3xl font-semibold" href={"/agents"}>
         Agents List page
       </Link>
     </>
